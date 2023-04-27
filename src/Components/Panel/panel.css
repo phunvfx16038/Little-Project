@@ -3,7 +3,7 @@
 }   
 
 .container{
-    margin:0 15px
+    margin:0 80px
 }
 
 .wrap{
@@ -40,6 +40,7 @@
 .park_balloon{
     display: flex;
     position: relative;
+   
 }
 
 .park_balloon-1{
