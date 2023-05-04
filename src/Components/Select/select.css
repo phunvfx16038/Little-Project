@@ -1,0 +1,37 @@
+.select-component {
+    position: relative;
+    z-index: 15;
+}
+
+.select {
+    padding: 15px 15px 7px 15px;
+    background-color: #FFDE32;
+    cursor: pointer;
+    border-radius: 10px;
+    color: #fff;
+    margin-left: 15px;
+    box-shadow:0 6px #F9B842;
+}
+
+.options {
+    position: absolute;
+    width: 150px;
+}
+
+.options .option {
+    background: #fff;
+    padding: 8px 16px;
+    border: 1px solid #000;
+    width: 100%;
+    border-bottom: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.options .option:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.options .option:first-child {
+    border-top: none;
+}

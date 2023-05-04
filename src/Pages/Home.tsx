@@ -1,13 +1,23 @@
 import React from 'react'
-import Header from '../Components/Header'
-import Panel from '../Components/Panel'
 
+import bgImage from "../assets/images/bg.png"
+import Banner from '../Components/Banner'
+import BookTickets from '../Components/BookTickets'
 
 const Home = () => {
+  const style = {
+    backgroundImage: `url(${bgImage})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    padding:'40px 20px'
+  }
   return (
-    <div>
-        <Header/>
-        <Panel/>
+    <div style={{padding:"0 30px"}}>
+        <div style={style}>
+          <Banner/>
+          <BookTickets/>
+        </div>
     </div>
   )
 }

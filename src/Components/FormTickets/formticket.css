@@ -1,0 +1,141 @@
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input{
+    padding:10px 20px;
+    background-color:#FFFFFF;
+    font-size: 16px;
+    outline: none;
+    border-color:#FFF6D4;
+    border-radius: 15px;
+    width:90%
+}
+
+select{
+    padding:10px;
+    background-color:#FFDE32;
+    outline: none;
+    border:none;
+    margin-left: 15px;
+}
+
+.ticket-bag_form, .count-ticket-date_form, .full-name_form, .phone_form, .email_form{
+    margin-bottom: 15px;
+    width:100%
+}
+.count-ticket-date_form,.ticket-bag_form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.count-ticket-date_form .count-ticket{
+    width: 20%;
+}
+
+.count-ticket-date_form .show-date{
+    width: 60%;
+    margin-left: 15px;
+
+}
+
+.count-ticket-date_form .date{
+    width: 5%;
+    margin-left: 10px;
+}
+
+.ant-picker-panel-container {
+    background-color: aqua;
+    font-family:'Montserrat', sans-serif;
+}
+
+.ant-picker-panel-container .ant-picker-panel{
+    width:400px
+}
+
+.ant-picker-panel-container .ant-picker-date-panel{
+    width:100%;
+    padding:12px
+}
+
+.ant-picker-panel-container .ant-picker-header {
+    color: #23221F;
+    
+}
+
+.ant-picker-panel-container .ant-picker-body>.ant-picker-content{
+    padding:15px;
+    width:100%
+}
+
+.ant-picker-panel-container .ant-picker-content th{
+    color: #FF8A00;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.ant-picker-panel-container .ant-picker-content tbody tr:last-child{
+    display: none;
+}
+
+.ant-picker-panel-container .ant-picker-cell-inner{
+    color :#23221F;
+    font-size: 18px;
+}
+
+.ant-picker-panel-container .ant-picker-date-panel .ant-picker-body .ant-picker-content tbody .ant-picker-cell-selected .ant-picker-cell-inner{
+    border:1px solid #FF8A00;
+    background-color: #FF8A00;
+    border-radius: 50%;
+    color:#FFFFFF;
+  
+}
+
+.ant-picker-panel-container .ant-picker-footer{
+    display: none;
+}
+
+.wrap-datePicker{
+    display: flex;
+    width: 60px;
+    margin-left: 15px;
+    position:relative
+}
+
+.datePicker{
+    width:100%;
+    z-index: 12;
+    padding:10px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.wrap-datePicker .calendar-icon{
+    position: absolute;
+    left:-3px;
+    top:-4px;
+    font-size:18px;
+    padding: 15px 15px 7px 15px;
+    background-color: #FFDE32;
+    cursor: pointer;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow:0 6px #F9B842;
+}
+
+.btn-ticket{
+    background-color: #FF000A;
+    color: #FFFFFF;
+    box-shadow:0 6px #93000A;
+    border-radius: 10px;
+    padding:15px 0;
+    border: none;
+    width: 80%;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
