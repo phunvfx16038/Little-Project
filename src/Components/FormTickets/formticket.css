@@ -5,14 +5,22 @@ form{
     align-items: center;
 }
 
-input{
+.input,.show-date,.show-select-ticket{
     padding:10px 20px;
     background-color:#FFFFFF;
     font-size: 16px;
     outline: none;
-    border-color:#FFF6D4;
+    border-width: 2px;
+    border-top:2px solid #b5ab86;
+    border-left:2px solid #b5ab86;
     border-radius: 15px;
-    width:90%
+    width:100%
+}
+
+.show-select-ticket{
+    margin-right:20px;
+    padding:15px;
+    
 }
 
 select{
@@ -33,14 +41,17 @@ select{
     align-items: center;
 }
 
+.ticket-bag_form .ticket-bag-inp_form{
+    margin-right:20px
+}
+
 .count-ticket-date_form .count-ticket{
     width: 20%;
 }
 
 .count-ticket-date_form .show-date{
-    width: 60%;
     margin-left: 15px;
-
+    padding:15px;
 }
 
 .count-ticket-date_form .date{
@@ -116,10 +127,10 @@ select{
 
 .wrap-datePicker .calendar-icon{
     position: absolute;
-    left:-3px;
-    top:-4px;
+    right:0;
+    top:0;
     font-size:18px;
-    padding: 15px 15px 7px 15px;
+    padding: 10px 11px 5px 11px;
     background-color: #FFDE32;
     cursor: pointer;
     border-radius: 10px;

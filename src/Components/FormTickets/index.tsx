@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import "./formticket.css"
-import { Option, Select } from '../Select';
-import { DatePicker } from 'antd';
+import { Select } from '../Select';
+import { DatePicker, Input } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { BiCalendar } from "react-icons/bi";
+import { database } from '../../firebase';
+import { child, push, ref } from 'firebase/database';
+import { Option, dataInput } from '../../propType';
 const options: Option[] = [
   {
     label: "Audi",
@@ -28,39 +31,83 @@ const options: Option[] = [
 ];
 
 const FormTickets = () => {
-  
-  const [selectedItem, setSelectedItem] = useState<Option | null>(null);
-  const [useDate,setUseDate] = useState('')
 
-  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    setUseDate(dateString)
+  const inputValue:dataInput = {
+    ticket:'Gói gia đình',
+    amount:'',
+    date:'Ngày sử dụng',
+    name:'',
+    phone:'',
+    email:''
+  }
+
+  const dbRef = ref(database);
+  const [dataForm,setDataForm] = useState<dataInput>(inputValue)
+
+  const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    setDataForm({...dataForm,date:dateString})
   };
 
+  const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDataForm({...dataForm,amount:event.target.value})
+  };
+
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDataForm({...dataForm,name:event.target.value})
+  };
+
+  const handleChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDataForm({...dataForm,phone:event.target.value})
+  };
+
+  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDataForm({...dataForm,email:event.target.value})
+  };
+
+  const createTicket=(ticket: dataInput) =>{
+    push(child(dbRef, `ticket/`), {
+      ticket: ticket,
+    });
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
+    event.preventDefault()
+    createTicket(dataForm)
+    setDataForm({...dataForm,
+      ticket:'Gói gia đình',
+    amount:'',
+    date:'Ngày sử dụng',
+    name:'',
+    phone:'',
+    email:''
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className='ticket-bag_form'>
-        <input type='text' className='ticket-bag-inp_form' placeholder='Gói gia đình' value={selectedItem?.value}/>
+        <div className='show-select-ticket'>{dataForm.ticket}</div>
         <Select
         options={options}
-        onChange={(selection: Option) => setSelectedItem(selection)}
+        onChange={(selection: Option) => setDataForm({...dataForm,ticket:selection.value})}
       />
       </div>
       <div className='count-ticket-date_form'>
-        <input type='text' className='count-ticket' placeholder='Số lượng vé'/>
-        <input type='text' className='show-date' placeholder='Ngày sử dụng' value={useDate} readOnly/>
+        <Input placeholder="Số lượng vé" className="input" onChange={handleChangeAmount} value={dataForm.amount}/>
+        <div className='show-date'>{dataForm.date}</div>
         <div className='wrap-datePicker'>
-        <DatePicker onChange={onChange} className='datePicker'/>
+        <DatePicker onChange={onChangeDate} className='datePicker'/>
         <div className="calendar-icon"><BiCalendar /></div>
         </div>
       </div>
       <div className='full-name_form'>
-        <input type='text' placeholder='Họ và tên'/>
+        <Input placeholder="Họ và tên" className="input" onChange={handleChangeName} value={dataForm.name}/>
       </div>
       <div className='phone_form' >
-        <input type='tel' placeholder='Số điện thoại'/>
+        <Input placeholder="Số điện thoại" className="input" onChange={handleChangePhone} value={dataForm.phone}/>
       </div>
       <div className='email_form' >
-        <input type='email' placeholder='Địa chỉ Email'/>
+        <Input placeholder="Địa chỉ Email" className="input" onChange={handleChangeEmail} value={dataForm.email}/>
       </div>
       <button className='btn-ticket'>Đặt vé</button>
     </form>

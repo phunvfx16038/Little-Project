@@ -1,0 +1,43 @@
+h2{
+    text-align: center;
+    color:#FFFFFF;
+    font-weight: 900;
+    font-size: 96px;
+}
+
+.cover-list{
+    flex-wrap: nowrap;
+    
+    transform:translateX(0);
+    transition: all 1s ease;
+}
+
+.list-card{
+   position: relative;
+    overflow: hidden;
+}
+
+.arrow-left,.arrow-right{
+    padding: 10px 11px 5px 11px;
+    color:#FFFFFF;
+    background-color:#FFDE32;
+    outline: none;
+    border:none;
+    box-shadow:0 6px #FFBE5C;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.arrow-left{
+    position: absolute;
+    left:0;
+    top:45%;
+}
+
+.arrow-right{
+    position: absolute;
+    right:-10px;
+    top:45%;
+    
+}

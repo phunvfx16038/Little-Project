@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiPhone } from "react-icons/fi";
+import "../../App.css"
 import "./header.css"
 import logo from "../../assets/images/logo.png"
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [addClass,setAddClass] = useState<number>()
   const menuData = [
     {
       title: "Trang chủ",
@@ -11,13 +14,14 @@ const Header = () => {
     },
     {
       title: "Sự kiện",
-      link: "#",
+      link: "event",
     },
     {
       title: "Liên hệ",
-      link: "#",
+      link: "contact",
     },
   ];
+
   return (
     <nav className='wrapper-menu'>
       <div className='container'>
@@ -26,13 +30,14 @@ const Header = () => {
               <img src={logo} alt="logo"/>
           </div>
           <ul className='main_menu'>
-            {menuData.map((item) => (
-                  <li key={item.title}>
-                    <a
-                      href={item.link}
+            {menuData.map((item,index) => (
+                  <li key={index}>
+                    <Link to={item.link}
+                    className={addClass === index ? 'active' : "inactive"}
+                    onClick={()=>setAddClass(index)}
                     >
                       {item.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
           </ul>

@@ -1,4 +1,5 @@
 import React from 'react'
+import "../../App.css"
 import "./banner.css"
 import park from "../../assets/images/image 2.png"
 import balloon1 from "../../assets/images/balloon1.png"

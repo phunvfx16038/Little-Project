@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import './select.css';
 import { AiFillCaretDown } from "react-icons/ai";
-
-export type Option = {
-    label: string;
-    value: string | number;
-}
+import { Option } from '../../propType';
 
 interface SelectProps {
     placeholder?: string;

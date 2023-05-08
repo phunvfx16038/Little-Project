@@ -1,6 +1,6 @@
 import React from 'react'
+import "../../App.css"
 import "./bookticket.css"
-import "../Header/header.css"
 import midImg from "../../assets/images/Vector.png"
 import { AiFillStar } from "react-icons/ai";
 import FormTickets from '../FormTickets';
