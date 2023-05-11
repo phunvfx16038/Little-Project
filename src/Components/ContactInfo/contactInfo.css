@@ -1,0 +1,44 @@
+.px-10{
+    padding:0 10px
+}
+
+form>p{
+    margin-bottom:30px
+}
+
+.input-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:15px
+}
+
+.input-group>input:first-child{
+    width:60%;
+    margin-right:20px
+}
+
+.group{
+    display: flex;
+}
+
+.group-img{
+    margin-right:20px
+}
+
+/* .group-img:before{
+    content: '';
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    background-color: #6EC1E4;
+} */
+
+.group-detail>p:first-child{
+    margin-bottom:10px;
+    font-weight: 700;  
+}
+
+.group-detail>p:last-child{
+    font-size: 14px;  
+}

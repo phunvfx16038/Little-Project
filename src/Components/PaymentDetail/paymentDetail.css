@@ -1,0 +1,43 @@
+.number-infor{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom:15px;
+}
+
+label{
+    font-weight: 700;
+    color:#23221F;
+    display:block
+}
+
+.mt-10{
+    margin-top:10px
+}
+
+.p-left-form{
+    padding:40px 30px 95px 30px;
+}
+
+.position-vector{
+    right: -84px;
+    width: 119px;
+}
+
+.position-ticket{
+    left: 17%;
+}
+
+.total-ticket{
+    position: relative;
+}
+
+.total-ticket:after{
+    content:"vé";
+    position: absolute;
+    top:50%;
+    right:35%
+}
+
+.infor-ticket .input{
+    width:70%
+}

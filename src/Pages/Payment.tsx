@@ -1,7 +1,7 @@
 import React from "react";
 import bgImage from "../assets/images/bg.png";
-import ListCards from "../Components/ListCards";
-const Event = () => {
+import PaymentDetail from "../Components/PaymentDetail";
+const Payment = () => {
   const style = {
     backgroundImage: `url(${bgImage})`,
     backgroundSize: "cover",
@@ -11,9 +11,9 @@ const Event = () => {
   };
   return (
     <div style={style}>
-      <ListCards />
+      <PaymentDetail />
     </div>
   );
 };
 
-export default Event;
+export default Payment;

@@ -1,14 +1,12 @@
 form{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    
 }
 
 .input,.show-date,.show-select-ticket{
     padding:10px 20px;
     background-color:#FFFFFF;
-    font-size: 16px;
     outline: none;
     border-width: 2px;
     border-top:2px solid #b5ab86;
@@ -19,7 +17,7 @@ form{
 
 .show-select-ticket{
     margin-right:20px;
-    padding:15px;
+    padding:12px;
     
 }
 
@@ -51,7 +49,7 @@ select{
 
 .count-ticket-date_form .show-date{
     margin-left: 15px;
-    padding:15px;
+    padding:12px;
 }
 
 .count-ticket-date_form .date{
@@ -146,7 +144,8 @@ select{
     padding:15px 0;
     border: none;
     width: 80%;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+    margin: 0 auto
 }
