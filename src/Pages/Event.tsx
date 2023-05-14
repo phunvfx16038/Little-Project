@@ -1,18 +1,15 @@
 import React from "react";
-import bgImage from "../assets/images/bg.png";
 import ListCards from "../Components/ListCards";
+import "../App.css";
+import Cover from "../Components/Cover";
 const Event = () => {
-  const style = {
-    backgroundImage: `url(${bgImage})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    padding: "40px 20px",
-  };
   return (
-    <div style={style}>
-      <ListCards />
-    </div>
+    <Cover>
+      <h2>Sự kiện nổi bật</h2>
+      <div className="container wrapper">
+        <ListCards type="event" />
+      </div>
+    </Cover>
   );
 };
 

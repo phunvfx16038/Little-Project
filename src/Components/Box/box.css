@@ -1,0 +1,27 @@
+.box{
+    position:relative;
+    margin-right:12px
+}
+
+.wrap-leftside{
+    background-color: #FFCA7B;
+    padding-bottom: 8px;
+    border-radius: 30px;
+}
+
+.semi-wrap{
+    background-color: #FDE8B3;
+    padding:10px;
+    border-radius: 30px;
+}
+
+.content-leftside{
+    background-color: #FFF6D4;
+    border: 2px dashed #FFB489;
+    border-radius: 30px;
+    padding:40px 15px 15px 15px;
+}
+
+.pb-70{
+    padding-bottom:70px
+}

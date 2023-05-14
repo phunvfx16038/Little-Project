@@ -6,7 +6,7 @@
 
 .wrapper{
     display: flex;
-    padding: 20px;
+    padding: 0 20px 0 100px;
 }
 
 .container{
@@ -18,8 +18,9 @@ p,a,h1,h2,h3,h4,h5,h6{
     padding:0
 }
 
-.pl-80{
-    padding-left:80px;
+.px-30{
+    padding-left:30px;
+    padding-right:30px;
 }
 
 .mb-15{

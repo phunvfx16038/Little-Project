@@ -7,105 +7,83 @@ import { Input } from "antd";
 import locationImg from "../../assets/images/Group.png";
 import EmailImg from "../../assets/images/Group (1).png";
 import phoneImg from "../../assets/images/Group (2).png";
+import alexImage from "../../assets/images/Alex_AR_Lay_Do shadow 1.png";
+import Box from "../Box";
 
 const { TextArea } = Input;
+type dataProp = {
+  id: number;
+  title: string;
+  detail: string;
+  image: string;
+};
 const ContactInfo = () => {
+  const contactData: dataProp[] = [
+    {
+      id: 1,
+      title: "Địa chỉ:",
+      detail: "86/33 Âu Cơ, Phường 9, Quận Tân Bình, TP. Hồ Chí Minh",
+      image: locationImg,
+    },
+    {
+      id: 2,
+      title: "Email:",
+      detail: "investigate@your-site.com",
+      image: EmailImg,
+    },
+    {
+      id: 3,
+      title: "Điện thoại:",
+      detail: "+84 145 689 798",
+      image: phoneImg,
+    },
+  ];
+
   return (
     <div>
       <h2>Liên hệ</h2>
-      <div className="container wrapper">
-        <div className="leftside">
-          <div className="wrap-leftside">
-            <div className="semi-wrap">
-              <div
-                className="content-leftside"
-                style={{ padding: "40px 20px 15px 20px", height: "auto" }}
-              >
-                <form style={{ alignItems: "normal" }}>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse ac mollis justo. Etiam volutpat tellus quis
-                    risus volutpat, ut posuere ex facilisis.{" "}
-                  </p>
-                  <div className="input-group">
-                    <Input placeholder="Tên" className="input" />
-                    <Input placeholder="Email" className="input" />
-                  </div>
-                  <div className="input-group">
-                    <Input placeholder="Số điện thoại" className="input" />
-                    <Input placeholder="Địa chỉ" className="input" />
-                  </div>
-                  <TextArea
-                    rows={4}
-                    className="input mb-30"
-                    placeholder="Lời nhắn"
-                  />
-                  <button
-                    className="btn-ticket"
-                    style={{ width: "50%", marginBottom: "10px" }}
-                  >
-                    Gửi liên hệ
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+      <div className="container wrapper" style={{ position: "relative" }}>
+        <div className="alex-image">
+          <img src={alexImage} alt="alex img" />
         </div>
+        <Box style={{ width: "66.66%" }}>
+          <form style={{ alignItems: "normal" }}>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse ac mollis justo. Etiam volutpat tellus quis risus
+              volutpat, ut posuere ex facilisis.{" "}
+            </p>
+            <div className="input-group">
+              <Input placeholder="Tên" className="input" />
+              <Input placeholder="Email" className="input" />
+            </div>
+            <div className="input-group">
+              <Input placeholder="Số điện thoại" className="input" />
+              <Input placeholder="Địa chỉ" className="input" />
+            </div>
+            <TextArea rows={4} className="input mb-30" placeholder="Lời nhắn" />
+            <button
+              className="btn-ticket"
+              style={{ width: "50%", marginBottom: "10px" }}
+            >
+              Gửi liên hệ
+            </button>
+          </form>
+        </Box>
         <div className="rightside">
-          <div className="wrap-leftside" style={{ marginBottom: "25px" }}>
-            <div className="semi-wrap">
-              <div
-                className="content-leftside"
-                style={{ height: "auto", padding: "25px 20px" }}
-              >
-                <div className="group">
-                  <div className="group-img">
-                    <img src={locationImg} alt="vị trí" />
-                  </div>
-                  <div className="group-detail">
-                    <p>Địa chỉ:</p>
-                    <p>86/33 Âu Cơ, Phường 9, Quận Tân Bình, TP. Hồ Chí Minh</p>
-                  </div>
+          {contactData.map((data) => (
+            <Box key={data.id} style={{ marginBottom: "15px" }}>
+              <div className="group">
+                <div className="group-img">
+                  <img src={data.image} alt="vị trí" />
+                </div>
+                <div className="group-detail">
+                  <p>{data.title}</p>
+                  <p>{data.detail}</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="wrap-leftside" style={{ marginBottom: "25px" }}>
-            <div className="semi-wrap">
-              <div
-                className="content-leftside"
-                style={{ height: "auto", padding: "25px 20px" }}
-              >
-                <div className="group">
-                  <div className="group-img">
-                    <img src={EmailImg} alt="vị trí" />
-                  </div>
-                  <div className="group-detail">
-                    <p>Email:</p>
-                    <p>investigate@your-site.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="wrap-leftside" style={{ marginBottom: "25px" }}>
-            <div className="semi-wrap">
-              <div
-                className="content-leftside"
-                style={{ height: "auto", padding: "25px 20px" }}
-              >
-                <div className="group">
-                  <div className="group-img">
-                    <img src={phoneImg} alt="vị trí" />
-                  </div>
-                  <div className="group-detail">
-                    <p>Điện thoại:</p>
-                    <p>+84 145 689 798</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </Box>
+          ))}
         </div>
       </div>
     </div>

@@ -41,3 +41,11 @@ label{
 .infor-ticket .input{
     width:70%
 }
+
+.trini-img{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:15%;
+    z-index: 200;;
+}
