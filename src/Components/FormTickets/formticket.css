@@ -18,7 +18,11 @@ form{
 .show-select-ticket{
     margin-right:20px;
     padding:12px;
-    
+    height:18px;
+}
+
+.show-date{
+    height:20px;
 }
 
 select{
@@ -31,7 +35,8 @@ select{
 
 .ticket-bag_form, .count-ticket-date_form, .full-name_form, .phone_form, .email_form{
     margin-bottom: 15px;
-    width:100%
+    width:100%;
+    position:relative
 }
 .count-ticket-date_form,.ticket-bag_form{
     display: flex;
@@ -149,3 +154,35 @@ select{
     cursor: pointer;
     margin: 0 auto
 }
+
+.error-message{
+    font-size:12px;
+    color:red;
+    padding:0;
+    position:absolute;
+    right:100%
+}
+  
+.tooltip .tooltiptext {
+    width: 300px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 105%;
+}
+  
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent red;
+  }

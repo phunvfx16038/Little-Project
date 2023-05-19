@@ -46,38 +46,6 @@ const ListCards = ({ type }: listCardProps) => {
       time: "30/05/2021 - 01/06/2021",
       price: 55000,
     },
-    {
-      id: 5,
-      image: eventImg,
-      title: "Sự kiện 1",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 25000,
-    },
-    {
-      id: 6,
-      image: eventImg,
-      title: "Sự kiện 2",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 25000,
-    },
-    {
-      id: 7,
-      image: eventImg,
-      title: "Sự kiện 3",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 50000,
-    },
-    {
-      id: 8,
-      image: eventImg,
-      title: "Sự kiện 4",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 55000,
-    },
   ];
 
   const paymentList: eventProp[] = [
@@ -113,45 +81,12 @@ const ListCards = ({ type }: listCardProps) => {
       time: "30/05/2021 - 01/06/2021",
       price: 0,
     },
-    {
-      id: 5,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 6,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 7,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 8,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
   ];
 
   const listRef = useRef<HTMLDivElement>(null!);
   const [slideNumber, setSlideNumber] = useState(0);
   const handleClickArrow = (direction: string) => {
     let distance = listRef.current?.getBoundingClientRect().x - 120;
-    console.log(listRef.current?.getBoundingClientRect().x);
     if (direction === "left" && slideNumber > 0) {
       setSlideNumber(slideNumber - 1);
       listRef.current.style.transform = `translateX(${270 + distance}px)`;

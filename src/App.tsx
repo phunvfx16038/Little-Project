@@ -15,7 +15,7 @@ function App() {
       <Header />
       <div
         style={{
-          marginTop: "70px",
+          marginTop: "55px",
           padding: "0 25px",
           background:
             "radial-gradient(97.91% 60.14% at 50% 50%, #FFDB7E 0%, #FF7A00 100%)",

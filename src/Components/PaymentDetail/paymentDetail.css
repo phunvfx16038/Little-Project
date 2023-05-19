@@ -24,7 +24,7 @@ label{
 }
 
 .position-ticket{
-    left: 17%;
+    left: 12%;
 }
 
 .total-ticket{
@@ -44,8 +44,12 @@ label{
 
 .trini-img{
     position:absolute;
-    left:0;
+    left:-60px;
     bottom:0;
     width:15%;
     z-index: 200;;
+}
+
+.tooltip{
+    position:relative
 }
