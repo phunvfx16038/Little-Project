@@ -1,21 +1,21 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAIued9hSh7PJYs6rtvm3A_z3L0SXYJo54",
-  authDomain: "little-c9df5.firebaseapp.com",
-  projectId: "little-c9df5",
-  storageBucket: "little-c9df5.appspot.com",
-  messagingSenderId: "105121618948",
-  appId: "1:105121618948:web:f4507d6fb6479cc13e6951",
-  measurementId: "G-K3E97DFJ7F"
+  apiKey: "AIzaSyC1D0KdUo2JdehJIVTjlMIQW_lzqac2RAQ",
+  authDomain: "littleproject-fbc73.firebaseapp.com",
+  projectId: "littleproject-fbc73",
+  storageBucket: "littleproject-fbc73.appspot.com",
+  messagingSenderId: "223402673237",
+  appId: "1:223402673237:web:c1e440db4a3d0e4adc00dc",
+  measurementId: "G-JGFRSCXJ06",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const database = getDatabase(app);
+export const app = firebase.initializeApp(firebaseConfig);

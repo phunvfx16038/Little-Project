@@ -22,7 +22,7 @@ const CardInfo = ({ card, type }: cardProp) => {
         <Card
           hoverable
           style={{ width: 250, textAlign: "center" }}
-          cover={<img alt="example" src={card.image} />}
+          cover={<img alt="example" src={card.mainImage} />}
         >
           <h3 className="main-title">{card.title}</h3>
           <p className="address">{card.address}</p>
@@ -30,10 +30,10 @@ const CardInfo = ({ card, type }: cardProp) => {
             <span className="calendar">
               <BiCalendar />
             </span>
-            {card.time}
+            {card.date}
           </p>
           <p className="price">{formatter.format(card.price)}</p>
-          <Link to={`/event/${card.id}`}>
+          <Link to={`/event/${card.id}`} state={card}>
             <button className="btn-detail">Xem chi tiết</button>
           </Link>
         </Card>
@@ -44,7 +44,7 @@ const CardInfo = ({ card, type }: cardProp) => {
           cover={
             <img
               alt="example"
-              src={card.image}
+              src={card.mainImage}
               style={{ width: "150px", margin: "25px auto" }}
             />
           }

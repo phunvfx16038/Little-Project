@@ -12,3 +12,17 @@ img{
 p{
     margin-bottom:0
 }
+
+.flag{
+    position: absolute;
+    top:-100px;
+    z-index:200;
+    width:30%
+}
+
+.flag1{
+    right:0
+}
+.flag2{
+    left:0
+}

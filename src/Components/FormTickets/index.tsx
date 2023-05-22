@@ -4,11 +4,10 @@ import { Select } from "../Select";
 import { DatePicker, Input } from "antd";
 import type { DatePickerProps } from "antd";
 import { BiCalendar } from "react-icons/bi";
-import { database } from "../../firebase";
-import { child, push, ref } from "firebase/database";
 import { Option, dataInput, errorInput } from "../../propType";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "../Tooltip";
+import { addTicketsToFireBase } from "../../firebase/controller";
 
 const options: Option[] = [
   {
@@ -18,15 +17,8 @@ const options: Option[] = [
   },
 ];
 
-function generateId() {
-  return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-}
-
 const FormTickets = () => {
   const inputValue: dataInput = {
-    id: generateId(),
     ticket: "",
     amount: "",
     date: "Ngày sử dụng",
@@ -45,7 +37,7 @@ const FormTickets = () => {
     email: "",
   });
   const navigate = useNavigate();
-  const dbRef = ref(database);
+  // const dbRef = ref(database);
   const [dataForm, setDataForm] = useState<dataInput>(inputValue);
 
   const validateError = (data: dataInput) => {
@@ -156,17 +148,11 @@ const FormTickets = () => {
     setDataForm({ ...dataForm, email: event.target.value });
   };
 
-  const createTicket = (ticket: dataInput) => {
-    push(child(dbRef, `ticket/`), {
-      ticket: ticket,
-    });
-  };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     validateError(dataForm);
     if (validateError(dataForm)) {
-      createTicket(dataForm);
+      addTicketsToFireBase(dataForm);
       setDataForm({
         ...dataForm,
         ticket: "",
@@ -195,7 +181,9 @@ const FormTickets = () => {
             })
           }
         />
-        {errors.ticket !== "" ? <Tooltip>{errors.ticket}</Tooltip> : null}
+        {errors.ticket !== "" ? (
+          <Tooltip type="left">{errors.ticket}</Tooltip>
+        ) : null}
       </div>
       <div className="count-ticket-date_form tooltip">
         <Input
@@ -205,9 +193,13 @@ const FormTickets = () => {
           value={dataForm.amount}
           style={{ width: "60%" }}
         />
-        {errors.amount !== "" ? <Tooltip>{errors.amount}</Tooltip> : null}
+        {errors.amount !== "" ? (
+          <Tooltip type="left">{errors.amount}</Tooltip>
+        ) : null}
         <div className="show-date">{dataForm.date}</div>
-        {errors.date !== "" ? <Tooltip>{errors.date}</Tooltip> : null}
+        {errors.date !== "" ? (
+          <Tooltip type="left">{errors.date}</Tooltip>
+        ) : null}
         <div className="wrap-datePicker">
           <DatePicker onChange={onChangeDate} className="datePicker" />
           <div className="calendar-icon">
@@ -222,7 +214,9 @@ const FormTickets = () => {
           onChange={handleChangeName}
           value={dataForm.name}
         />
-        {errors.name !== "" ? <Tooltip>{errors.name}</Tooltip> : null}
+        {errors.name !== "" ? (
+          <Tooltip type="left">{errors.name}</Tooltip>
+        ) : null}
       </div>
       <div className="phone_form tooltip">
         <Input
@@ -231,7 +225,9 @@ const FormTickets = () => {
           onChange={handleChangePhone}
           value={dataForm.phone}
         />
-        {errors.phone !== "" ? <Tooltip>{errors.phone}</Tooltip> : null}
+        {errors.phone !== "" ? (
+          <Tooltip type="left">{errors.phone}</Tooltip>
+        ) : null}
       </div>
       <div className="email_form tooltip">
         <Input
@@ -240,7 +236,9 @@ const FormTickets = () => {
           onChange={handleChangeEmail}
           value={dataForm.email}
         />
-        {errors.email !== "" ? <Tooltip>{errors.email}</Tooltip> : null}
+        {errors.email !== "" ? (
+          <Tooltip type="left">{errors.email}</Tooltip>
+        ) : null}
       </div>
       <button className="btn-ticket">Đặt vé</button>
     </form>

@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { ticketSlice } from './ticketSlice'
 import { TypedUseSelectorHook, useDispatch,useSelector } from 'react-redux';
+import {eventSlice} from './eventSlice';
 
 
 export const store =  configureStore({
     reducer:{
         ticket:ticketSlice.reducer,
-
+        events:eventSlice.reducer,
     }
 
 })

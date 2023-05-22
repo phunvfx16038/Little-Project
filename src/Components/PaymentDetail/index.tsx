@@ -8,8 +8,9 @@ import { BiCalendar } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import Box from "../Box";
 import { useAppDispatch, useAppSelector } from "../../app/store";
-import { dataInput, errorPaymentInfo, paymentInfoProp } from "../../propType";
+import { errorPaymentInfo, paymentProp } from "../../propType";
 import Tooltip from "../Tooltip";
+import { addPaymentsToFireBase } from "../../firebase/controller";
 
 const PaymentDetail = () => {
   const { state } = useLocation();
@@ -17,7 +18,7 @@ const PaymentDetail = () => {
   const tickets = useAppSelector((state) => state.ticket);
   const navigate = useNavigate();
 
-  const [ticketPayment] = useState<dataInput>({
+  const [paymentInfo, setPaymentInfo] = useState<paymentProp>({
     ticket: state.ticket,
     amount: state.amount,
     date: state.date,
@@ -25,24 +26,21 @@ const PaymentDetail = () => {
     phone: state.phone,
     email: state.email,
     price: state.price * Number(state.amount),
-  });
-
-  const [paymentInfo, setPaymentInfo] = useState<paymentInfoProp>({
     numberCredit: null,
-    name: "",
-    date: "",
+    nameCredit: "",
+    dateCredit: "",
     code: "",
   });
 
   const [paymentError, setPaymentError] = useState<errorPaymentInfo>({
     numberCredit: "",
     name: "",
-    date: "",
+    dateCredit: "",
     code: "",
   });
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
-    setPaymentInfo({ ...paymentInfo, date: dateString });
+    setPaymentInfo({ ...paymentInfo, dateCredit: dateString });
   };
 
   const handleChangeNumberCredit = (
@@ -57,7 +55,7 @@ const PaymentDetail = () => {
   const handleChangeNameCredit = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPaymentInfo({ ...paymentInfo, name: event.target.value });
+    setPaymentInfo({ ...paymentInfo, nameCredit: event.target.value });
   };
 
   const handleChangeCodeCredit = (
@@ -66,9 +64,72 @@ const PaymentDetail = () => {
     setPaymentInfo({ ...paymentInfo, code: event.target.value });
   };
 
+  const validateErrorPayment = (data: paymentProp) => {
+    let isError = true;
+
+    //validate numberCredit
+    if (data.numberCredit === null) {
+      const message = "Vui lòng nhập số thẻ ";
+      paymentError.numberCredit = message;
+      setPaymentError({ ...paymentError });
+      isError = false;
+    } else if (isNaN(Number(data.numberCredit))) {
+      const message = "Số thẻ phải là số";
+      paymentError.numberCredit = message;
+      setPaymentError({ ...paymentError });
+      isError = false;
+    } else {
+      paymentError.numberCredit = "";
+      setPaymentError({ ...paymentError });
+      isError = true;
+    }
+
+    //validate date
+    if (data.dateCredit === "" || data.dateCredit === "Ngày sử dụng") {
+      const message = "Vui lòng chọn ngày ";
+      paymentError.dateCredit = message;
+      setPaymentError({ ...paymentError });
+      isError = false;
+    } else {
+      paymentError.dateCredit = "";
+      setPaymentError({ ...paymentError });
+      isError = true;
+    }
+
+    //validate name
+    if (data.nameCredit === "") {
+      const message = "Vui lòng nhập tên chủ thẻ ";
+      paymentError.name = message;
+      setPaymentError({ ...paymentError });
+      isError = false;
+    } else {
+      paymentError.name = "";
+      setPaymentError({ ...paymentError });
+      isError = true;
+    }
+
+    //validate cvv/cvc
+    if (data.code === "") {
+      const message = "Vui lòng nhập CCV/CVC ";
+      paymentError.code = message;
+      setPaymentError({ ...paymentError });
+      isError = false;
+    } else {
+      paymentError.code = "";
+      setPaymentError({ ...paymentError });
+      isError = true;
+    }
+
+    return isError;
+  };
+
   const handleSubmitPayment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate("/payment_success");
+    validateErrorPayment(paymentInfo);
+    if (validateErrorPayment(paymentInfo)) {
+      addPaymentsToFireBase(paymentInfo);
+      navigate("/payment_success");
+    }
   };
 
   return (
@@ -83,31 +144,33 @@ const PaymentDetail = () => {
         <div className="number-infor">
           <div>
             <label>Số tiền thanh toán</label>
-            <Input className="input mt-10" value={ticketPayment.price} />
+            <Input className="input mt-10" value={paymentInfo.price} readOnly />
           </div>
           <div className="total-ticket">
             <label>Số lượng vé</label>
             <Input
               className="input mt-10"
               style={{ width: "50%" }}
-              value={ticketPayment.amount}
+              value={paymentInfo.amount}
+              readOnly
             />
           </div>
           <div>
             <label>Ngày sử dụng</label>
-            <Input className="input mt-10" value={ticketPayment.date} />
+            <Input className="input mt-10" value={paymentInfo.date} readOnly />
           </div>
         </div>
         <div className="mt-10">
           <label>Thông tin liên hệ</label>
-          <Input className="input mt-10" style={{ width: "50%" }} />
+          <Input className="input mt-10" style={{ width: "50%" }} readOnly />
         </div>
         <div className="mt-10">
           <label>Điện thoại</label>
           <Input
             className="input mt-10"
             style={{ width: "40%" }}
-            value={ticketPayment.phone}
+            value={paymentInfo.phone}
+            readOnly
           />
         </div>
         <div className="mt-10">
@@ -115,7 +178,8 @@ const PaymentDetail = () => {
           <Input
             className="input mt-10"
             style={{ width: "50%" }}
-            value={ticketPayment.email}
+            value={paymentInfo.email}
+            readOnly
           />
         </div>
         <div className="vector position-vector">
@@ -135,12 +199,20 @@ const PaymentDetail = () => {
               className="input mt-10"
               onChange={handleChangeNumberCredit}
             />
-            <Tooltip style={{ top: "40%" }}>{state.name}</Tooltip>
+            {paymentError.numberCredit !== "" ? (
+              <Tooltip style={{ top: "40%" }} type="left">
+                {paymentError.numberCredit}
+              </Tooltip>
+            ) : null}
           </div>
           <div className="mt-10 tooltip">
             <label>Họ tên chủ thẻ</label>
             <Input className="input mt-10" onChange={handleChangeNameCredit} />
-            <Tooltip style={{ top: "40%" }}>{state.name}</Tooltip>
+            {paymentError.name !== "" ? (
+              <Tooltip style={{ top: "40%" }} type="left">
+                {paymentError.name}
+              </Tooltip>
+            ) : null}
           </div>
           <div
             className="count-ticket-date_form mt-10 tooltip"
@@ -149,9 +221,13 @@ const PaymentDetail = () => {
             <label>Ngày hết hạn</label>
             <div style={{ display: "flex", marginTop: "10px" }}>
               <div className="show-date" style={{ marginLeft: 0 }}>
-                {paymentInfo.date}
+                {paymentInfo.dateCredit}
               </div>
-              <Tooltip style={{ top: "40%" }}>{state.name}</Tooltip>
+              {paymentError.dateCredit !== "" ? (
+                <Tooltip style={{ top: "40%" }} type="left">
+                  {paymentError.dateCredit}
+                </Tooltip>
+              ) : null}
               <div className="wrap-datePicker">
                 <DatePicker onChange={onChangeDate} className="datePicker" />
                 <div className="calendar-icon">
@@ -167,7 +243,11 @@ const PaymentDetail = () => {
               style={{ width: "30%" }}
               onChange={handleChangeCodeCredit}
             />
-            <Tooltip style={{ top: "40%" }}>{state.name}</Tooltip>
+            {paymentError.code !== "" ? (
+              <Tooltip style={{ top: "40%" }} type="left">
+                {paymentError.code}
+              </Tooltip>
+            ) : null}
           </div>
           <button className="btn-ticket">Thanh toán</button>
         </form>

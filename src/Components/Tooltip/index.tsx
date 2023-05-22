@@ -3,12 +3,21 @@ import "./tooltip.css";
 type Props = {
   children: string;
   [key: string]: any;
+  type: string;
 };
-const Tooltip = ({ children, ...props }: Props) => {
+const Tooltip = ({ children, type, ...props }: Props) => {
   return (
-    <span className="tooltiptext" {...props}>
-      {children}
-    </span>
+    <>
+      {type === "left" ? (
+        <span className="tooltiptext" {...props}>
+          {children}
+        </span>
+      ) : type === "right" ? (
+        <span className="tooltiptextRight" {...props}>
+          {children}
+        </span>
+      ) : null}
+    </>
   );
 };
 

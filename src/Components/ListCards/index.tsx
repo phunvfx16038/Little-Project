@@ -1,87 +1,54 @@
 import { Col, Row } from "antd";
 import React, { useRef, useState } from "react";
 import CardInfo from "../CardInfo";
-import eventImg from "../../assets/images/Rectangle 1.png";
 import paymentImg from "../../assets/images/image 3.png";
 import "../../App.css";
 import "./listCard.css";
-import { eventProp } from "../../propType";
+import { eventDetailProp, eventProp } from "../../propType";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { useAppSelector } from "../../app/store";
 
 type listCardProps = {
   type: "payment" | "event";
 };
 
 const ListCards = ({ type }: listCardProps) => {
-  const eventList: eventProp[] = [
+  const paymentList: eventProp[] | eventDetailProp[] = [
     {
-      id: 1,
-      image: eventImg,
-      title: "Sự kiện 1",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 25000,
+      id: "1",
+      mainImage: paymentImg,
+      title: "ALT20210501",
+      address: "",
+      date: "30/05/2021 - 01/06/2021",
+      price: 0,
     },
     {
-      id: 2,
-      image: eventImg,
-      title: "Sự kiện 2",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 25000,
+      id: "2",
+      mainImage: paymentImg,
+      title: "ALT20210501",
+      address: "",
+      date: "30/05/2021 - 01/06/2021",
+      price: 0,
     },
     {
-      id: 3,
-      image: eventImg,
-      title: "Sự kiện 3",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 50000,
+      id: "3",
+      mainImage: paymentImg,
+      title: "ALT20210501",
+      address: "",
+      date: "30/05/2021 - 01/06/2021",
+      price: 0,
     },
     {
-      id: 4,
-      image: eventImg,
-      title: "Sự kiện 4",
-      address: "Đầm sen park",
-      time: "30/05/2021 - 01/06/2021",
-      price: 55000,
+      id: "4",
+      mainImage: paymentImg,
+      title: "ALT20210501",
+      address: "",
+      date: "30/05/2021 - 01/06/2021",
+      price: 0,
     },
   ];
 
-  const paymentList: eventProp[] = [
-    {
-      id: 1,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 2,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 3,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-    {
-      id: 4,
-      image: paymentImg,
-      title: "ALT20210501",
-      address: "",
-      time: "30/05/2021 - 01/06/2021",
-      price: 0,
-    },
-  ];
+  const dataEvent = useAppSelector((state) => state.events);
 
   const listRef = useRef<HTMLDivElement>(null!);
   const [slideNumber, setSlideNumber] = useState(0);
@@ -108,7 +75,7 @@ const ListCards = ({ type }: listCardProps) => {
         className="cover-list"
         ref={listRef}
       >
-        {(type === "event" ? eventList : paymentList).map((card) => (
+        {(type === "event" ? dataEvent.events : paymentList).map((card) => (
           <Col span={6} key={card.id}>
             <CardInfo card={card} type={type} />
           </Col>
