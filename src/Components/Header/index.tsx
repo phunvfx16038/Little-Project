@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { FiPhone } from "react-icons/fi";
-import "../../App.css"
-import "./header.css"
-import logo from "../../assets/images/logo.png"
-import { Link } from 'react-router-dom';
+import "../../App.css";
+import "./header.css";
+import logo from "../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [addClass,setAddClass] = useState<number>()
+  const [addClass, setAddClass] = useState<number>();
   const menuData = [
     {
       title: "Trang chủ",
@@ -23,32 +23,37 @@ const Header = () => {
   ];
 
   return (
-    <nav className='wrapper-menu'>
-      <div className='container'>
-        <div className='menu ' >
-        <div className='logo_menu'>
-              <img src={logo} alt="logo"/>
+    <nav className="wrapper-menu">
+      <div className="container">
+        <div className="menu ">
+          <div className="logo_menu">
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
-          <ul className='main_menu'>
-            {menuData.map((item,index) => (
-                  <li key={index}>
-                    <Link to={item.link}
-                    className={addClass === index ? 'active' : "inactive"}
-                    onClick={()=>setAddClass(index)}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
+          <ul className="main_menu">
+            {menuData.map((item, index) => (
+              <li key={index}>
+                <Link
+                  to={item.link}
+                  className={addClass === index ? "active" : "inactive"}
+                  onClick={() => setAddClass(index)}
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
-          <div className='phone_menu'>
-              <span><FiPhone/></span>
-              1234567890
+          <div className="phone_menu">
+            <span>
+              <FiPhone />
+            </span>
+            1234567890
           </div>
+        </div>
       </div>
-     </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

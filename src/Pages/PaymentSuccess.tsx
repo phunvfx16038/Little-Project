@@ -3,7 +3,7 @@ import Cover from "../Components/Cover";
 import Box from "../Components/Box";
 import ListCards from "../Components/ListCards";
 import alvinImage from "../assets/images/Alvin_Arnold_Votay1 1.png";
-
+import "../Components/FormTickets/formticket.css";
 const PaymentSuccess = () => {
   const pageStyle = {
     display: "flex",
@@ -34,6 +34,12 @@ const PaymentSuccess = () => {
             <p style={{ opacity: "0.6" }}>Trang 1/3</p>
           </div>
         </Box>
+      </div>
+      <div style={{ margin: "10px auto", width: "270px", display: "flex" }}>
+        <button className="btn-ticket" style={{ marginRight: "20px" }}>
+          Tải về
+        </button>
+        <button className="btn-ticket">Gửi Email</button>
       </div>
     </Cover>
   );

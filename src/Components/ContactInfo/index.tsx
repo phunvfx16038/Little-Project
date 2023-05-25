@@ -50,13 +50,7 @@ const ContactInfo = () => {
     message: "",
   });
 
-  const [contactError, setContactError] = useState<contactProp>({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    message: "",
-  });
+  const [contactError, setContactError] = useState<contactProp>({});
 
   const handleChangeNameContact = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -89,73 +83,44 @@ const ContactInfo = () => {
   };
 
   const validateErrorContact = (data: contactProp) => {
-    let isError = true;
-
     //validate name contact
+    const err: any = {};
     if (data.name === "") {
       const message = "Vui lòng nhập họ và tên";
-      contactError.name = message;
-      setContactError({ ...contactError });
-      isError = false;
-    } else {
-      contactError.name = "";
-      setContactError({ ...contactError });
-      isError = true;
+      err.name = message;
     }
 
     //validate name contact
     if (data.email === "") {
       const message = "Vui lòng nhập email";
-      contactError.email = message;
-      setContactError({ ...contactError });
-      isError = false;
-    } else {
-      contactError.email = "";
-      setContactError({ ...contactError });
-      isError = true;
+      err.email = message;
     }
 
     //validate phone contact
     if (data.phone === "") {
       const message = "Vui lòng nhập số điện thoại";
-      contactError.phone = message;
-      setContactError({ ...contactError });
-      isError = false;
-    } else {
-      contactError.phone = "";
-      setContactError({ ...contactError });
-      isError = true;
+      err.phone = message;
     }
 
     //validate address contact
     if (data.address === "") {
       const message = "Vui lòng nhập địa chỉ";
-      contactError.address = message;
-      setContactError({ ...contactError });
-      isError = false;
-    } else {
-      contactError.address = "";
-      setContactError({ ...contactError });
-      isError = true;
+      err.address = message;
     }
 
     //validate message contact
     if (data.message === "") {
       const message = "Vui lòng nhập lời nhắn";
-      contactError.message = message;
-      setContactError({ ...contactError });
-      isError = false;
-    } else {
-      contactError.message = "";
-      setContactError({ ...contactError });
-      isError = true;
+      err.message = message;
     }
+    setContactError({ ...err });
 
-    return isError;
+    return Object.keys(err).length < 1;
   };
 
   const handleSubmitContact = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log("click");
     validateErrorContact(contact);
     if (validateErrorContact(contact)) {
       addContactsToFireBase(contact);
@@ -181,21 +146,19 @@ const ContactInfo = () => {
                 placeholder="Tên"
                 className="input"
                 onChange={handleChangeNameContact}
+                style={contactError.name ? { border: "1px solid red" } : {}}
               />
-              {contactError.name !== "" ? (
-                <Tooltip style={{ top: "40%" }} type="left">
-                  {contactError.name}
-                </Tooltip>
+              {contactError.name ? (
+                <Tooltip type="left">{contactError.name}</Tooltip>
               ) : null}
               <Input
                 placeholder="Email"
                 className="input"
                 onChange={handleChangeEmailContact}
+                style={contactError.email ? { border: "1px solid red" } : {}}
               />
-              {contactError.email !== "" ? (
-                <Tooltip style={{ top: "40%" }} type="right">
-                  {contactError.email}
-                </Tooltip>
+              {contactError.email ? (
+                <Tooltip type="right">{contactError.email}</Tooltip>
               ) : null}
             </div>
             <div className="input-group">
@@ -203,21 +166,19 @@ const ContactInfo = () => {
                 placeholder="Số điện thoại"
                 className="input"
                 onChange={handleChangePhoneContact}
+                style={contactError.phone ? { border: "1px solid red" } : {}}
               />
-              {contactError.phone !== "" ? (
-                <Tooltip style={{ top: "40%" }} type="left">
-                  {contactError.phone}
-                </Tooltip>
+              {contactError.phone ? (
+                <Tooltip type="left">{contactError.phone}</Tooltip>
               ) : null}
               <Input
                 placeholder="Địa chỉ"
                 className="input"
                 onChange={handleChangeAddressContact}
+                style={contactError.address ? { border: "1px solid red" } : {}}
               />
-              {contactError.address !== "" ? (
-                <Tooltip style={{ top: "40%" }} type="right">
-                  {contactError.address}
-                </Tooltip>
+              {contactError.address ? (
+                <Tooltip type="right">{contactError.address}</Tooltip>
               ) : null}
             </div>
             <div style={{ position: "relative" }}>
@@ -226,11 +187,10 @@ const ContactInfo = () => {
                 className="input mb-30"
                 placeholder="Lời nhắn"
                 onChange={handleMessageContact}
+                style={contactError.message ? { border: "1px solid red" } : {}}
               />
-              {contactError.message !== "" ? (
-                <Tooltip style={{ top: "40%" }} type="right">
-                  {contactError.message}
-                </Tooltip>
+              {contactError.message ? (
+                <Tooltip type="right">{contactError.message}</Tooltip>
               ) : null}
             </div>
             <button

@@ -1,17 +1,20 @@
 .tooltiptext {
-    width: 300px;
+    width: 120px;
     background-color: red;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 5px 10px;
     position: absolute;
     z-index: 300;
+}
+
+.left{
     top: 0;
     right: 105%;
 }
   
-.tooltiptext::after {
+.left::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -22,20 +25,12 @@
     border-color: transparent transparent transparent red;
 }
 
-.tooltiptextRight{
-    width: 300px;
-    background-color: red;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 300;
+.right{
     top: 0;
-    left: 105%;
+    left: 104%;
 }
 
-.tooltiptextRight::after {
+.right::after {
     content: " ";
     position: absolute;
     top: 50%;
@@ -44,4 +39,20 @@
     border-width: 5px;
     border-style: solid;
     border-color: transparent red transparent transparent;
-  }
+}
+
+.top{
+    bottom: 150%;
+    left: 50%;
+}
+
+.top::after{
+    content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: red transparent transparent transparent;
+}

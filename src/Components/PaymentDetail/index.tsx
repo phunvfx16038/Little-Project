@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import "./paymentDetail.css";
 import midImg from "../../assets/images/Vector.png";
@@ -7,15 +7,12 @@ import { DatePicker, DatePickerProps, Input } from "antd";
 import { BiCalendar } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import Box from "../Box";
-import { useAppDispatch, useAppSelector } from "../../app/store";
 import { errorPaymentInfo, paymentProp } from "../../propType";
 import Tooltip from "../Tooltip";
 import { addPaymentsToFireBase } from "../../firebase/controller";
 
 const PaymentDetail = () => {
   const { state } = useLocation();
-  const dispatch = useAppDispatch();
-  const tickets = useAppSelector((state) => state.ticket);
   const navigate = useNavigate();
 
   const [paymentInfo, setPaymentInfo] = useState<paymentProp>({
@@ -32,12 +29,7 @@ const PaymentDetail = () => {
     code: "",
   });
 
-  const [paymentError, setPaymentError] = useState<errorPaymentInfo>({
-    numberCredit: "",
-    name: "",
-    dateCredit: "",
-    code: "",
-  });
+  const [paymentError, setPaymentError] = useState<errorPaymentInfo>({});
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
     setPaymentInfo({ ...paymentInfo, dateCredit: dateString });
@@ -65,62 +57,36 @@ const PaymentDetail = () => {
   };
 
   const validateErrorPayment = (data: paymentProp) => {
-    let isError = true;
-
+    const err: any = {};
     //validate numberCredit
     if (data.numberCredit === null) {
       const message = "Vui lòng nhập số thẻ ";
-      paymentError.numberCredit = message;
-      setPaymentError({ ...paymentError });
-      isError = false;
+      err.numberCredit = message;
     } else if (isNaN(Number(data.numberCredit))) {
       const message = "Số thẻ phải là số";
-      paymentError.numberCredit = message;
-      setPaymentError({ ...paymentError });
-      isError = false;
-    } else {
-      paymentError.numberCredit = "";
-      setPaymentError({ ...paymentError });
-      isError = true;
+      err.numberCredit = message;
     }
 
     //validate date
     if (data.dateCredit === "" || data.dateCredit === "Ngày sử dụng") {
       const message = "Vui lòng chọn ngày ";
-      paymentError.dateCredit = message;
-      setPaymentError({ ...paymentError });
-      isError = false;
-    } else {
-      paymentError.dateCredit = "";
-      setPaymentError({ ...paymentError });
-      isError = true;
+      err.dateCredit = message;
     }
 
     //validate name
     if (data.nameCredit === "") {
       const message = "Vui lòng nhập tên chủ thẻ ";
-      paymentError.name = message;
-      setPaymentError({ ...paymentError });
-      isError = false;
-    } else {
-      paymentError.name = "";
-      setPaymentError({ ...paymentError });
-      isError = true;
+      err.name = message;
     }
 
     //validate cvv/cvc
     if (data.code === "") {
       const message = "Vui lòng nhập CCV/CVC ";
-      paymentError.code = message;
-      setPaymentError({ ...paymentError });
-      isError = false;
-    } else {
-      paymentError.code = "";
-      setPaymentError({ ...paymentError });
-      isError = true;
+      err.code = message;
     }
+    setPaymentError({ ...err });
 
-    return isError;
+    return Object.keys(err).length < 1;
   };
 
   const handleSubmitPayment = (event: React.FormEvent<HTMLFormElement>) => {
@@ -198,8 +164,11 @@ const PaymentDetail = () => {
             <Input
               className="input mt-10"
               onChange={handleChangeNumberCredit}
+              style={
+                paymentError.numberCredit ? { border: "1px solid red" } : {}
+              }
             />
-            {paymentError.numberCredit !== "" ? (
+            {paymentError.numberCredit ? (
               <Tooltip style={{ top: "40%" }} type="left">
                 {paymentError.numberCredit}
               </Tooltip>
@@ -207,8 +176,12 @@ const PaymentDetail = () => {
           </div>
           <div className="mt-10 tooltip">
             <label>Họ tên chủ thẻ</label>
-            <Input className="input mt-10" onChange={handleChangeNameCredit} />
-            {paymentError.name !== "" ? (
+            <Input
+              className="input mt-10"
+              onChange={handleChangeNameCredit}
+              style={paymentError.name ? { border: "1px solid red" } : {}}
+            />
+            {paymentError.name ? (
               <Tooltip style={{ top: "40%" }} type="left">
                 {paymentError.name}
               </Tooltip>
@@ -220,10 +193,17 @@ const PaymentDetail = () => {
           >
             <label>Ngày hết hạn</label>
             <div style={{ display: "flex", marginTop: "10px" }}>
-              <div className="show-date" style={{ marginLeft: 0 }}>
+              <div
+                className="show-date"
+                style={
+                  paymentError.numberCredit
+                    ? { border: "1px solid red", marginLeft: 0 }
+                    : { marginLeft: 0 }
+                }
+              >
                 {paymentInfo.dateCredit}
               </div>
-              {paymentError.dateCredit !== "" ? (
+              {paymentError.dateCredit ? (
                 <Tooltip style={{ top: "40%" }} type="left">
                   {paymentError.dateCredit}
                 </Tooltip>
@@ -240,10 +220,14 @@ const PaymentDetail = () => {
             <label>CVV/CVC</label>
             <Input
               className="input mt-10"
-              style={{ width: "30%" }}
               onChange={handleChangeCodeCredit}
+              style={
+                paymentError.code
+                  ? { border: "1px solid red", width: "30%" }
+                  : { width: "30%" }
+              }
             />
-            {paymentError.code !== "" ? (
+            {paymentError.code ? (
               <Tooltip style={{ top: "40%" }} type="left">
                 {paymentError.code}
               </Tooltip>

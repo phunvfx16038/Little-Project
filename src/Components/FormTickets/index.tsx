@@ -28,104 +28,57 @@ const FormTickets = () => {
     price: 0,
   };
 
-  const [errors, setErrors] = useState<errorInput>({
-    ticket: "",
-    amount: "",
-    date: "",
-    name: "",
-    phone: "",
-    email: "",
-  });
+  const [errors, setErrors] = useState<errorInput>({});
   const navigate = useNavigate();
   // const dbRef = ref(database);
   const [dataForm, setDataForm] = useState<dataInput>(inputValue);
 
   const validateError = (data: dataInput) => {
     const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-    let isError = true;
+    const err: any = {};
     //validate ticket
     if (data.ticket === "") {
       const message = "Vui lòng chọn gói sản phẩm ";
-      errors.ticket = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.ticket = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.ticket = message;
     }
 
     //validate amount
     if (data.amount === "") {
       const message = "Vui lòng nhập số lượng vé ";
-      errors.amount = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.amount = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.amount = message;
     }
 
     //validate date
     if (data.date === "" || data.date === "Ngày sử dụng") {
       const message = "Vui lòng chọn ngày ";
-      errors.date = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.date = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.date = message;
     }
 
     //validate title
     if (data.name === "") {
       const message = "Vui lòng nhập tên ";
-      errors.name = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.name = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.name = message;
     }
 
     //validate phone
     if (data.phone === "") {
       const message = "Vui lòng nhập số điện thoại";
-      errors.phone = message;
-      setErrors({ ...errors });
-      isError = false;
+      err.phone = message;
     } else if (isNaN(Number(data.phone))) {
       const message = "Số điện thoại phải là số";
-      errors.phone = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.phone = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.phone = message;
     }
-
     //validate email
     if (reg.test(data.email) === false) {
       const message = "Địa chỉ email phải chứa @";
-      errors.email = message;
-      setErrors({ ...errors });
-      isError = false;
+      err.email = message;
     } else if (data.email === "") {
       const message = "Vui lòng nhập email";
-      errors.email = message;
-      setErrors({ ...errors });
-      isError = false;
-    } else {
-      errors.email = "";
-      setErrors({ ...errors });
-      isError = true;
+      err.email = message;
     }
+    setErrors({ ...err });
 
-    return isError;
+    return Object.keys(err).length < 1;
   };
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
@@ -151,6 +104,7 @@ const FormTickets = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     validateError(dataForm);
+    console.log(validateError(dataForm));
     if (validateError(dataForm)) {
       addTicketsToFireBase(dataForm);
       setDataForm({
@@ -170,7 +124,12 @@ const FormTickets = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="ticket-bag_form tooltip">
-        <div className="show-select-ticket">{dataForm.ticket}</div>
+        <div
+          className="show-select-ticket"
+          style={errors.ticket ? { border: "1px solid red" } : {}}
+        >
+          {dataForm.ticket}
+        </div>
         <Select
           options={options}
           onChange={(selection: Option) =>
@@ -181,9 +140,7 @@ const FormTickets = () => {
             })
           }
         />
-        {errors.ticket !== "" ? (
-          <Tooltip type="left">{errors.ticket}</Tooltip>
-        ) : null}
+        {errors.ticket ? <Tooltip type="left">{errors.ticket}</Tooltip> : null}
       </div>
       <div className="count-ticket-date_form tooltip">
         <Input
@@ -191,15 +148,20 @@ const FormTickets = () => {
           className="input"
           onChange={handleChangeAmount}
           value={dataForm.amount}
-          style={{ width: "60%" }}
+          style={
+            errors.amount
+              ? { border: "1px solid red", width: "60%" }
+              : { width: "60%" }
+          }
         />
-        {errors.amount !== "" ? (
-          <Tooltip type="left">{errors.amount}</Tooltip>
-        ) : null}
-        <div className="show-date">{dataForm.date}</div>
-        {errors.date !== "" ? (
-          <Tooltip type="left">{errors.date}</Tooltip>
-        ) : null}
+        {errors.amount ? <Tooltip type="left">{errors.amount}</Tooltip> : null}
+        <div
+          className="show-date"
+          style={errors.date ? { border: "1px solid red" } : {}}
+        >
+          {dataForm.date}
+        </div>
+        {errors.date ? <Tooltip type="right">{errors.date}</Tooltip> : null}
         <div className="wrap-datePicker">
           <DatePicker onChange={onChangeDate} className="datePicker" />
           <div className="calendar-icon">
@@ -213,10 +175,9 @@ const FormTickets = () => {
           className="input"
           onChange={handleChangeName}
           value={dataForm.name}
+          style={errors.name ? { border: "1px solid red" } : {}}
         />
-        {errors.name !== "" ? (
-          <Tooltip type="left">{errors.name}</Tooltip>
-        ) : null}
+        {errors.name ? <Tooltip type="left">{errors.name}</Tooltip> : null}
       </div>
       <div className="phone_form tooltip">
         <Input
@@ -224,10 +185,9 @@ const FormTickets = () => {
           className="input"
           onChange={handleChangePhone}
           value={dataForm.phone}
+          style={errors.phone ? { border: "1px solid red" } : {}}
         />
-        {errors.phone !== "" ? (
-          <Tooltip type="left">{errors.phone}</Tooltip>
-        ) : null}
+        {errors.phone ? <Tooltip type="left">{errors.phone}</Tooltip> : null}
       </div>
       <div className="email_form tooltip">
         <Input
@@ -235,10 +195,9 @@ const FormTickets = () => {
           className="input"
           onChange={handleChangeEmail}
           value={dataForm.email}
+          style={errors.email ? { border: "1px solid red" } : {}}
         />
-        {errors.email !== "" ? (
-          <Tooltip type="left">{errors.email}</Tooltip>
-        ) : null}
+        {errors.email ? <Tooltip type="left">{errors.email}</Tooltip> : null}
       </div>
       <button className="btn-ticket">Đặt vé</button>
     </form>

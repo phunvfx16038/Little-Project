@@ -16,12 +16,12 @@ export type dataInput = {
 };
 
 export type errorInput = {
-  ticket: string;
-  amount: string;
-  date: string;
-  name: string;
-  phone: string;
-  email: string;
+  ticket?: string;
+  amount?: string;
+  date?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
 };
 
 export type eventProp = {
@@ -49,10 +49,10 @@ export type paymentProp = {
 };
 
 export type errorPaymentInfo = {
-  numberCredit: string;
-  name: string;
-  dateCredit: string;
-  code: string;
+  numberCredit?: string;
+  name?: string;
+  dateCredit?: string;
+  code?: string;
 };
 
 export type eventDetailProp = {
@@ -70,9 +70,9 @@ export type eventDetailProp = {
 };
 
 export type contactProp = {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  message: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  message?: string;
 };

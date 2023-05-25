@@ -1,12 +1,12 @@
 import { Card } from "antd";
 import React from "react";
-import { eventProp } from "../../propType";
+import { eventDetailProp } from "../../propType";
 import { BiCalendar } from "react-icons/bi";
 import "./cardInfo.css";
 import { Link } from "react-router-dom";
 import tick from "../../assets/images/tick 1.png";
 type cardProp = {
-  card: eventProp;
+  card: eventDetailProp;
   type: "payment" | "event";
 };
 
